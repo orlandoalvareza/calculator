@@ -1,9 +1,23 @@
+import { useState } from 'react';
+
 import './App.css';
 
 function App() {
+  const [input, setInput] = useState('0');
+
+  const addValue = (event) => {
+    let value = event.target.value;
+
+    if (input === '0') {
+      setInput(value);
+    } else {
+      setInput(input + value);
+    }
+  };
+
   return (
     <div className="App">
-      <div id="display">{'input'}</div>
+      <div id="display">{input}</div>
       <div className="calculator-buttons">
         <div className="rows">
           <button id="clear">
@@ -20,13 +34,13 @@ function App() {
           </button>
         </div>
         <div className="rows">
-          <button id="seven" value="7">
+          <button onClick={addValue} id="seven" value="7">
             7
           </button>
-          <button id="eight" value="8">
+          <button onClick={addValue} id="eight" value="8">
             8
           </button>
-          <button id="nine" value="9">
+          <button onClick={addValue} id="nine" value="9">
             9
           </button>
           <button id="multiply" value="*">
@@ -34,13 +48,13 @@ function App() {
           </button>
         </div>
         <div className="rows">
-          <button id="four" value="4">
+          <button onClick={addValue} id="four" value="4">
             4
           </button>
-          <button id="five" value="5">
+          <button onClick={addValue} id="five" value="5">
             5
           </button>
-          <button id="six" value="6">
+          <button onClick={addValue} id="six" value="6">
             6
           </button>
           <button id="subtract" value="-">
@@ -48,13 +62,13 @@ function App() {
           </button>
         </div>
         <div className="rows">
-          <button id="one" value="1">
+          <button onClick={addValue} id="one" value="1">
             1
           </button>
-          <button id="two" value="2">
+          <button onClick={addValue} id="two" value="2">
             2
           </button>
-          <button id="three" value="3">
+          <button onClick={addValue} id="three" value="3">
             3
           </button>
           <button id="add" value="+">
@@ -62,7 +76,7 @@ function App() {
           </button>
         </div>
         <div className="rows">
-          <button id="zero" value="0">
+          <button onClick={addValue} id="zero" value="0">
             0
           </button>
           <button id="decimal" value=".">
