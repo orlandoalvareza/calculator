@@ -83,6 +83,10 @@ function App() {
     setInput('0');
   };
 
+  const findPercent = () => {
+    setInput(input / 100);
+  };
+
   return (
     <div className="App">
       <div id="display">{input}</div>
@@ -94,7 +98,7 @@ function App() {
           <button onClick={deleteValue} id="delete">
             Del
           </button>
-          <button id="percent">
+          <button onClick={findPercent} id="percent">
             %
           </button>
           <button onClick={addOperator} id="divide" value="/">
