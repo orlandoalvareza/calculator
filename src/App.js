@@ -75,6 +75,10 @@ function App() {
     }
   };
 
+  const deleteValue = () => {
+    setInput(input.substring(0, input.length - 1));
+  };
+
   return (
     <div className="App">
       <div id="display">{input}</div>
@@ -83,7 +87,7 @@ function App() {
           <button id="clear">
             AC
           </button>
-          <button id="delete">
+          <button onClick={deleteValue} id="delete">
             Del
           </button>
           <button id="percent">
