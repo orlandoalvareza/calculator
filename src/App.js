@@ -79,12 +79,16 @@ function App() {
     setInput(input.substring(0, input.length - 1));
   };
 
+  const clearScreen = () => {
+    setInput('0');
+  };
+
   return (
     <div className="App">
       <div id="display">{input}</div>
       <div className="calculator-buttons">
         <div className="rows">
-          <button id="clear">
+          <button onClick={clearScreen} id="clear">
             AC
           </button>
           <button onClick={deleteValue} id="delete">
