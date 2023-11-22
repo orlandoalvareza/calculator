@@ -51,6 +51,30 @@ function App() {
     }
   };
 
+  const addDecimal = () => {
+    let arr = input.split('');
+    let lastValue = arr[arr.length - 1];
+
+    if (operators.indexOf(lastValue) !== -1) {
+      arr.splice(arr.length, 0, '0');
+      let newInput = arr.join('');
+
+      setInput(newInput + '.');
+    } else {
+      for (let i = 0; i < arr.length; i++) {
+        if (operators.indexOf(arr[i]) !== -1) {
+          operatorIndex = i;
+        }
+      }
+
+      let newArr = arr.slice(operatorIndex, arr.length);
+
+      if (!newArr.includes('.')) {
+        setInput(input + '.');
+      }
+    }
+  };
+
   return (
     <div className="App">
       <div id="display">{input}</div>
@@ -115,7 +139,7 @@ function App() {
           <button onClick={addValue} id="zero" value="0">
             0
           </button>
-          <button id="decimal" value=".">
+          <button onClick={addDecimal} id="decimal" value=".">
             .
           </button>
           <button id="equals">
