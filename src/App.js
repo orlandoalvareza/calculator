@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { evaluate } from 'mathjs';
 
 import './App.css';
 
@@ -12,7 +13,10 @@ function App() {
   const addValue = (event) => {
     let value = event.target.value;
 
-    if (input === '0') {
+    if (isEval) {
+      setInput(value);
+      setIsEval(!isEval);
+    } else if (input === '0') {
       setInput(value);
     } else {
       setInput(input + value);
@@ -73,6 +77,22 @@ function App() {
         setInput(input + '.');
       }
     }
+  };
+
+  const calculate = () => {
+    let arr = input.split('');
+    let lastValue = arr[arr.length - 1];
+
+    if (operators.indexOf(lastValue) !== -1) {
+      arr.splice(arr.length - 1);
+      let newInput = arr.join('');
+
+      setInput(evaluate(newInput));
+    } else {
+      setInput(evaluate(input));
+    }
+
+    setIsEval(true);
   };
 
   const deleteValue = () => {
@@ -154,7 +174,7 @@ function App() {
           <button onClick={addDecimal} id="decimal" value=".">
             .
           </button>
-          <button id="equals">
+          <button onClick={calculate} id="equals">
             =
           </button>
         </div>
