@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { evaluate } from 'mathjs';
 
+import OperatorButton from './components/OperatorButton';
+
 import './App.css';
 
 function App() {
@@ -23,37 +25,13 @@ function App() {
     }
   };
 
-  const addOperator = (event) => {
-    let operator = event.target.value;
-    let arr = input.toString().split('');
-    let lastOperator = arr[arr.length - 1];
-    let secondLastOperator = arr[arr.length - 2];
+  const operatorInputHandler = (newInput) => {
+    setInput(newInput);
+  }
 
-    if (isEval) {
-      setInput(input + operator);
-      setIsEval(!isEval);
-    }
-
-    if (lastOperator === '+' || lastOperator === '*' || lastOperator === '/') {
-      if (operator === '-') {
-        setInput(input + operator);
-      } else {
-        arr.pop();
-        let newInput = arr.join('');
-        setInput(newInput + operator);
-      }
-    } else if (
-      operators.indexOf(lastOperator) !== -1 &&
-      operators.indexOf(secondLastOperator) !== -1
-    ) {
-      arr.pop();
-      arr.pop();
-      let newInput = arr.join('');
-      setInput(newInput + operator);
-    } else {
-      setInput(input + operator);
-    }
-  };
+  const operatorEvaluateHandler = (newEval) => {
+    setIsEval(newEval)
+  }
 
   const addDecimal = () => {
     let arr = input.split('');
@@ -121,9 +99,13 @@ function App() {
           <button onClick={findPercent} id="percent">
             %
           </button>
-          <button onClick={addOperator} id="divide" value="/">
-            /
-          </button>
+          <OperatorButton 
+            operator={'/'} 
+            currentInput={input} 
+            onInput={operatorInputHandler} 
+            isEvaluate={isEval} 
+            onIsEvaluate={operatorEvaluateHandler}
+          />
         </div>
         <div className="rows">
           <button onClick={addValue} id="seven" value="7">
@@ -135,9 +117,13 @@ function App() {
           <button onClick={addValue} id="nine" value="9">
             9
           </button>
-          <button onClick={addOperator} id="multiply" value="*">
-            x
-          </button>
+          <OperatorButton 
+            operator={'*'} 
+            currentInput={input} 
+            onInput={operatorInputHandler} 
+            isEvaluate={isEval} 
+            onIsEvaluate={operatorEvaluateHandler}
+          />
         </div>
         <div className="rows">
           <button onClick={addValue} id="four" value="4">
@@ -149,9 +135,13 @@ function App() {
           <button onClick={addValue} id="six" value="6">
             6
           </button>
-          <button onClick={addOperator} id="subtract" value="-">
-            -
-          </button>
+          <OperatorButton 
+            operator={'-'} 
+            currentInput={input} 
+            onInput={operatorInputHandler} 
+            isEvaluate={isEval} 
+            onIsEvaluate={operatorEvaluateHandler}
+          />
         </div>
         <div className="rows">
           <button onClick={addValue} id="one" value="1">
@@ -163,9 +153,13 @@ function App() {
           <button onClick={addValue} id="three" value="3">
             3
           </button>
-          <button onClick={addOperator} id="add" value="+">
-            +
-          </button>
+          <OperatorButton 
+            operator={'+'} 
+            currentInput={input} 
+            onInput={operatorInputHandler} 
+            isEvaluate={isEval} 
+            onIsEvaluate={operatorEvaluateHandler}
+          />
         </div>
         <div className="rows">
           <button onClick={addValue} id="zero" value="0">
