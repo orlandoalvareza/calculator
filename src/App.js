@@ -4,12 +4,13 @@ import { evaluate } from 'mathjs';
 import OperatorButton from './components/OperatorButton';
 
 import './App.css';
+import DecimalButton from './components/DecimalButton';
 
 function App() {
   const [input, setInput] = useState('0');
   const [isEval, setIsEval] = useState(false);
 
-  let operatorIndex = 0;
+  // let operatorIndex = 0;
   const operators = ['+', '-', '*', '/'];
 
   const addValue = (event) => {
@@ -25,7 +26,7 @@ function App() {
     }
   };
 
-  const operatorInputHandler = (newInput) => {
+  const enteredInputHandler = (newInput) => {
     setInput(newInput);
   }
 
@@ -33,29 +34,29 @@ function App() {
     setIsEval(newEval)
   }
 
-  const addDecimal = () => {
-    let arr = input.split('');
-    let lastValue = arr[arr.length - 1];
+  // const addDecimal = () => {
+  //   let arr = input.split('');
+  //   let lastValue = arr[arr.length - 1];
 
-    if (operators.indexOf(lastValue) !== -1) {
-      arr.splice(arr.length, 0, '0');
-      let newInput = arr.join('');
+  //   if (operators.indexOf(lastValue) !== -1) {
+  //     arr.splice(arr.length, 0, '0');
+  //     let newInput = arr.join('');
 
-      setInput(newInput + '.');
-    } else {
-      for (let i = 0; i < arr.length; i++) {
-        if (operators.indexOf(arr[i]) !== -1) {
-          operatorIndex = i;
-        }
-      }
+  //     setInput(newInput + '.');
+  //   } else {
+  //     for (let i = 0; i < arr.length; i++) {
+  //       if (operators.indexOf(arr[i]) !== -1) {
+  //         operatorIndex = i;
+  //       }
+  //     }
 
-      let newArr = arr.slice(operatorIndex, arr.length);
+  //     let newArr = arr.slice(operatorIndex, arr.length);
 
-      if (!newArr.includes('.')) {
-        setInput(input + '.');
-      }
-    }
-  };
+  //     if (!newArr.includes('.')) {
+  //       setInput(input + '.');
+  //     }
+  //   }
+  // };
 
   const calculate = () => {
     let arr = input.split('');
@@ -102,7 +103,7 @@ function App() {
           <OperatorButton 
             operator={'/'} 
             currentInput={input} 
-            onInput={operatorInputHandler} 
+            onInput={enteredInputHandler} 
             isEvaluate={isEval} 
             onIsEvaluate={operatorEvaluateHandler}
           />
@@ -120,7 +121,7 @@ function App() {
           <OperatorButton 
             operator={'*'} 
             currentInput={input} 
-            onInput={operatorInputHandler} 
+            onInput={enteredInputHandler} 
             isEvaluate={isEval} 
             onIsEvaluate={operatorEvaluateHandler}
           />
@@ -138,7 +139,7 @@ function App() {
           <OperatorButton 
             operator={'-'} 
             currentInput={input} 
-            onInput={operatorInputHandler} 
+            onInput={enteredInputHandler} 
             isEvaluate={isEval} 
             onIsEvaluate={operatorEvaluateHandler}
           />
@@ -156,7 +157,7 @@ function App() {
           <OperatorButton 
             operator={'+'} 
             currentInput={input} 
-            onInput={operatorInputHandler} 
+            onInput={enteredInputHandler} 
             isEvaluate={isEval} 
             onIsEvaluate={operatorEvaluateHandler}
           />
@@ -165,9 +166,10 @@ function App() {
           <button onClick={addValue} id="zero" value="0">
             0
           </button>
-          <button onClick={addDecimal} id="decimal" value=".">
-            .
-          </button>
+          <DecimalButton
+            currentInput={input} 
+            onInput={enteredInputHandler}
+          />
           <button onClick={calculate} id="equals">
             =
           </button>
