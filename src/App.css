@@ -93,6 +93,6 @@ button:active {
   background-color: white;
 }
 
-#zero {
+.zero-button {
   flex: 1 1 25.3%;
 }
